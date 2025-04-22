@@ -118,6 +118,17 @@ app.get("/api/usage", (req, res) => {
   }
 });
 
+app.get('/api/check-key', (req, res) => {
+  const apiKey = process.env.OPENAI_API_KEY;
+  console.log("API Key actuelle :", process.env.OPENAI_API_KEY);
+  if (apiKey && apiKey !== '') {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(500).json({ success: false });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Cle api bien charger ${process.env.OPENAI_API_KEY}`);
 });

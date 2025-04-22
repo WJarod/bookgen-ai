@@ -147,4 +147,30 @@ Texte :
     link.remove();
   });
 
+  // Vérifie la disponibilité de la clé API au chargement
+  fetch('/api/check-key')
+    .then(res => res.json())
+    .then(data => {
+      const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = `
+    <div class="alert alert-${data.success ? 'success' : 'danger'} fade show" role="alert">
+      ${data.success
+        ? '✅ Clé API détectée : la génération est disponible !'
+        : '❌ Clé API non détectée : la génération n\'est pas disponible !'}
+    </div>`;
+      alertPlaceholder.append(wrapper);
+      window.setTimeout(() => {
+        const alertEl = wrapper.querySelector('.alert');
+        if (alertEl) {
+          alertEl.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
+          alertEl.style.opacity = '0';
+          alertEl.style.transform = 'translateY(-10px)';
+          setTimeout(() => alertEl.remove(), 500);
+        }
+      }, 5000);
+    })
+    .catch(err => {
+      console.warn("❌ Impossible de vérifier la clé API :", err);
+    });
 });
