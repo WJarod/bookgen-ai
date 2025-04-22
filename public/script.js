@@ -24,11 +24,19 @@ Structure imposée :
 
 Ajoute une **description d’image pour la couverture du livre**.
 
+Chaque chapitre présente une recette avec :
+- Un **titre**
+- Une **image suggérée**
+- Une **petite histoire ou anecdote** autour de la recette
+- Les **ingrédients** nécessaires
+- Les **étapes** de réalisation détaillées
+
 Ensuite, rédige les {{chapters}} chapitres numérotés comme suit :
 
 ---
 [Chapitre 1 : Titre de la recette]
 Image : ...
+Petite histoire ou anecdote : ...
 Ingrédients : ...
 Étapes :
 ...
@@ -36,6 +44,7 @@ Ingrédients : ...
 ---
 [Chapitre 2 : Titre de la recette]
 Image : ...
+Petite histoire ou anecdote : ...
 Ingrédients : ...
 Étapes :
 ...
@@ -59,7 +68,6 @@ Structure à respecter :
 
 1. Un **titre** : "{{bookTitle}}"
 2. Le nom de l’auteur : "{{author}}"
-3. Le personnage principal s'appelle "{{characterName}}" (si applicable)
 4. Le thème principal est : {{theme}}
 
 Ajoute une **description d’image pour la couverture du livre**.

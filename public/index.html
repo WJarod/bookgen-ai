@@ -53,7 +53,7 @@
         <label for="author" class="form-label">Nom de l’auteur</label>
         <input type="text" id="author" name="author" class="form-control" placeholder="Ex : Jarod">
       </div>
-      <div class="mb-3">
+      <div class="mb-3" id="characterField">
         <label for="characterName" class="form-label">Nom du personnage principal</label>
         <input type="text" id="characterName" name="characterName" class="form-control" placeholder="Ex : Anubis">
       </div>
@@ -91,5 +91,24 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-pZjw8f+ua7Kw1TIq0v8FSC3Z6Ytk2E3UpS3zIJebE8ADedWxKuU+AM0Hqe7Fcpze" crossorigin="anonymous"></script>
   <script src="script.js" defer></script>
+
+  <script>
+    const bookTypeSelect = document.getElementById('bookType');
+    const characterField = document.getElementById('characterField');
+    const characterInput = document.getElementById('characterName');
+
+    function updateCharacterVisibility() {
+      if (bookTypeSelect.value === "Livre de recettes") {
+        characterField.style.display = 'none';
+        characterInput.disabled = true;
+      } else {
+        characterField.style.display = 'block';
+        characterInput.disabled = false;
+      }
+    }
+
+    bookTypeSelect.addEventListener('change', updateCharacterVisibility);
+    document.addEventListener('DOMContentLoaded', updateCharacterVisibility);
+  </script>
 </body>
 </html>
