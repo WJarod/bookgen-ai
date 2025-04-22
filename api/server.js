@@ -11,7 +11,7 @@ const fs = require("fs");
 const usageFile = path.join(__dirname, "usage.json");
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Utility to replace {{variables}} in the prompt
 function fillTemplate(template, variables) {
