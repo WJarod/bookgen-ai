@@ -24,6 +24,12 @@ Structure imposée :
 
 Ajoute une **description d’image pour la couverture du livre**.
 
+Commence le contenu par le titre et l’auteur :
+
+[TITRE] : {{bookTitle}}
+[AUTEUR] : {{author}}
+[Image couverture] : ...
+
 Chaque chapitre présente une recette avec :
 - Un **titre**
 - Une **image suggérée**
@@ -64,13 +70,13 @@ Tu dois générer un contenu immersif destiné à des lecteurs âgés de {{age}}
 
 Le livre doit contenir **exactement {{chapters}} chapitres**, chacun numéroté et structuré de manière cohérente.
 
-Structure à respecter :
+Commence le contenu par le titre et l’auteur :
 
-1. Un **titre** : "{{bookTitle}}"
-2. Le nom de l’auteur : "{{author}}"
-4. Le thème principal est : {{theme}}
+[TITRE] : {{bookTitle}}
+[AUTEUR] : {{author}}
+[Image couverture] : ...
 
-Ajoute une **description d’image pour la couverture du livre**.
+Le thème principal est : {{theme}}
 
 Ensuite, écris chaque chapitre en respectant ce format :
 
