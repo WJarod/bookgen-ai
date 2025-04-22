@@ -93,7 +93,7 @@ Texte :
 ...
 
 ...
-(Poursuis jusqu’au chapitre {{chapters}})
+(Répète la structure jusqu’au chapitre {{chapters}})
 
 Enfin, ajoute le résumé du livre :
 
