@@ -12,34 +12,38 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildPrompt(values) {
     const isRecipe = values.bookType?.toLowerCase().includes("recette");
     const promptTemplate = isRecipe ? `
-Tu es un chef professionnel spécialisé dans la cuisine régionale. Crée un livre de recettes pour des lecteurs de {{age}} ans.
+Tu es un chef professionnel spécialisé dans la cuisine régionale. Crée un livre de recettes destiné à des lecteurs âgés de {{age}} ans.
 
-Il doit comporter :
+Le livre doit obligatoirement contenir exactement **{{chapters}} chapitres**, chacun correspondant à une recette traditionnelle de la région.
+
+Structure imposée :
+
 1. Un **titre** : "{{bookTitle}}"
 2. Le nom de l’auteur : "{{author}}"
-3. Le thème principal est : {{theme}}
+3. Le thème principal : {{theme}}
 
-Ajoute également une **description d’image pour la couverture du livre**.
+Ajoute une **description d’image pour la couverture du livre**.
 
-Ensuite, rédige le livre complet en {{chapters}} chapitres.
-Chaque chapitre présente une recette avec :
-- Un **titre**
-- Une **image suggérée**
-- Les **ingrédients** nécessaires
-- Les **étapes** de réalisation détaillées
+Ensuite, rédige les {{chapters}} chapitres numérotés comme suit :
 
-Enfin, ajoute un **résumé final** à la fin du livre (comme un texte de quatrième de couverture).
-
-Format strict :
-[TITRE] : ...
-[AUTEUR] : ...
-[Image couverture] : ...
 ---
-[Chapitre 1 : Titre]
+[Chapitre 1 : Titre de la recette]
 Image : ...
 Ingrédients : ...
 Étapes :
 ...
+
+---
+[Chapitre 2 : Titre de la recette]
+Image : ...
+Ingrédients : ...
+Étapes :
+...
+
+...
+(Répète la structure jusqu’au chapitre {{chapters}})
+
+Enfin, ajoute le résumé du livre :
 
 ---
 [Résumé] :
@@ -47,31 +51,37 @@ Ingrédients : ...
     : `
 Tu es un auteur professionnel capable de rédiger tout type de livre selon le style suivant : {{bookType}}.
 
-Tu dois générer un contenu immersif destiné à des lecteurs de {{age}} ans. Il doit comporter :
+Tu dois générer un contenu immersif destiné à des lecteurs âgés de {{age}} ans.
+
+Le livre doit contenir **exactement {{chapters}} chapitres**, chacun numéroté et structuré de manière cohérente.
+
+Structure à respecter :
+
 1. Un **titre** : "{{bookTitle}}"
 2. Le nom de l’auteur : "{{author}}"
 3. Le personnage principal s'appelle "{{characterName}}" (si applicable)
 4. Le thème principal est : {{theme}}
 
-Ajoute également une **description d’image pour la couverture du livre**.
+Ajoute une **description d’image pour la couverture du livre**.
 
-Ensuite, rédige le livre complet en {{chapters}} chapitres.
-Chaque chapitre :
-- Doit avoir un **titre** clair
-- Commencer par une **description d’image illustrant la scène**
-- Contenir un contenu immersif, avec **300 à 1500 mots minimum** par chapitre
+Ensuite, écris chaque chapitre en respectant ce format :
 
-Enfin, ajoute un **résumé final** à la fin du livre.
-
-Format strict :
-[TITRE] : ...
-[AUTEUR] : ...
-[Image couverture] : ...
 ---
 [Chapitre 1 : Titre]
 Image : ...
 Texte :
 ...
+
+---
+[Chapitre 2 : Titre]
+Image : ...
+Texte :
+...
+
+...
+(Poursuis jusqu’au chapitre {{chapters}})
+
+Enfin, ajoute le résumé du livre :
 
 ---
 [Résumé] :
