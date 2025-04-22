@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const promptTemplate = isRecipe ? `
 Tu es un chef professionnel spécialisé dans la cuisine régionale. Crée un livre de recettes destiné à des lecteurs âgés de {{age}} ans.
 
-⚠️ Le livre doit contenir **EXACTEMENT {{chapters}} chapitres distincts** (ni plus, ni moins). Chaque chapitre = 1 recette unique. AUCUN chapitre en plus ou en moins ne doit être généré.
+Le livre doit contenir **EXACTEMENT {{chapters}} chapitres distincts** (ni plus, ni moins). Chaque chapitre = 1 recette unique. AUCUN chapitre en plus ou en moins ne doit être généré.
 
 Structure imposée :
 
@@ -60,7 +60,7 @@ Enfin, ajoute le résumé du livre :
 `
 Tu es un auteur professionnel capable de rédiger un livre dans le style : {{bookType}}, pour des lecteurs de {{age}} ans.
 
-⚠️ Le livre doit contenir **EXACTEMENT {{chapters}} chapitres numérotés** (ni plus, ni moins). Ne pas générer de chapitre supplémentaire.
+Le livre doit contenir **EXACTEMENT {{chapters}} chapitres numérotés** (ni plus, ni moins). Ne pas générer de chapitre supplémentaire.
 
 Commence le contenu ainsi :
 
