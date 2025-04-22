@@ -19,13 +19,8 @@ function fillTemplate(template, variables) {
 }
 
 function updateUsage(tokens) {
-  let data = { total_tokens: 0 };
-  if (fs.existsSync(usageFile)) {
-    data = JSON.parse(fs.readFileSync(usageFile));
-  }
-  data.total_tokens += tokens;
-  fs.writeFileSync(usageFile, JSON.stringify(data));
-  return data.total_tokens;
+  // Vercel is read-only, so we simulate token tracking
+  return tokens; // Return only current usage for display
 }
 
 // Get available prompts
@@ -109,13 +104,8 @@ app.post("/api/pdf", async (req, res) => {
 });
 
 app.get("/api/usage", (req, res) => {
-  if (fs.existsSync(usageFile)) {
-    const data = JSON.parse(fs.readFileSync(usageFile));
-    const cost = (data.total_tokens / 1000 * 0.001).toFixed(4); // 0.001 $ / 1K tokens pour gpt-3.5-turbo
-    res.json({ totalTokens: data.total_tokens, totalCost: cost });
-  } else {
-    res.json({ totalTokens: 0, totalCost: "0.0000" });
-  }
+  // Return static values on Vercel (no file write access)
+  res.json({ totalTokens: 0, totalCost: "0.0000" });
 });
 
 app.get('/api/check-key', (req, res) => {
