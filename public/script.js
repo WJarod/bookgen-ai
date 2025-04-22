@@ -122,8 +122,8 @@ Texte :
       }
       downloadBtn.classList.remove('d-none');
     } catch (error) {
-      output.value = '❌ Erreur lors de la génération du livre.';
-      console.error('❌ Erreur côté client :', error.message || error);
+      output.value = '❌ Erreur lors de la génération du livre : ' + (error.message || 'Erreur inconnue.');
+      console.error('❌ Erreur côté client :', error);
     } finally {
       confirmBtn.disabled = false;
     }
