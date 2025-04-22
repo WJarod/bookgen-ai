@@ -10,89 +10,126 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentValues = {};
 
   function buildPrompt(values) {
-    const isRecipe = values.bookType?.toLowerCase().includes("recette");
-    const promptTemplate = isRecipe ? `
-Tu es un chef professionnel spécialisé dans la cuisine régionale. Crée un livre de recettes destiné à des lecteurs âgés de {{age}} ans.
-
-Le livre doit contenir **EXACTEMENT {{chapters}} chapitres distincts** (ni plus, ni moins). Chaque chapitre = 1 recette unique. AUCUN chapitre en plus ou en moins ne doit être généré.
-
-Structure imposée :
-
-1. Un **titre** : "{{bookTitle}}"
-2. Le nom de l’auteur : "{{author}}"
-3. Le thème principal : {{theme}}
-
-Ajoute une **description d’image pour la couverture du livre**.
-
-Commence le contenu ainsi :
-
-[TITRE] : {{bookTitle}}  
-[AUTEUR] : {{author}}  
-[Image couverture] : ...
-
-Ensuite, rédige {{chapters}} chapitres avec la structure suivante :
-
----
-[Chapitre 1 : Titre de la recette]  
-Image : ...  
-Petite histoire ou anecdote : ...  
-Ingrédients : ...  
-Étapes :  
-...
-
----
-[Chapitre 2 : Titre de la recette]  
-Image : ...  
-Petite histoire ou anecdote : ...  
-Ingrédients : ...  
-Étapes :  
-...
-
-...
-(Répète jusqu’au chapitre {{chapters}}. PAS UN DE PLUS.)
-
-Enfin, ajoute le résumé du livre :
-
----
-[Résumé] :
-...`
-:
-`
-Tu es un auteur professionnel capable de rédiger un livre dans le style : {{bookType}}, pour des lecteurs de {{age}} ans.
-
-Le livre doit contenir **EXACTEMENT {{chapters}} chapitres numérotés** (ni plus, ni moins). Ne pas générer de chapitre supplémentaire.
-
-Commence le contenu ainsi :
-
-[TITRE] : {{bookTitle}}  
-[AUTEUR] : {{author}}  
-[Image couverture] : ...
-
-Le thème principal est : {{theme}}
-
-Ensuite, rédige chaque chapitre avec la structure suivante :
-
----
-[Chapitre 1 : Titre]  
-Image : ...  
-Texte :  
-...
-
----
-[Chapitre 2 : Titre]  
-Image : ...  
-Texte :  
-...
-
-...
-(Répète jusqu’au chapitre {{chapters}}. AUCUN AUTRE.)
-
-Enfin, ajoute le résumé du livre :
-
----
-[Résumé] :
-...`;
-
+    const type = values.bookType?.toLowerCase();
+    let promptTemplate = '';
+  
+    if (type.includes("recette")) {
+      promptTemplate = `
+  Tu es un chef professionnel spécialisé dans la cuisine régionale. Crée un **livre de recettes complet** pour des lecteurs âgés de {{age}} ans.
+  
+  Ce livre doit contenir **EXACTEMENT {{chapters}} chapitres distincts** (ni plus, ni moins). Chaque chapitre = 1 recette traditionnelle de la région. AUCUN chapitre supplémentaire ne doit être généré.
+  
+  🎯 Objectif :
+  Tu dois écrire un contenu accessible à un **débutant** en cuisine, en détaillant **chaque étape**, **le temps estimé**, **les ustensiles nécessaires**, les **dosages précis** et **les conseils de préparation**.
+  
+  📘 Structure imposée :
+  
+  1. Un **titre** : "{{bookTitle}}"
+  2. Le nom de l’auteur : "{{author}}"
+  3. Le thème principal : {{theme}}
+  
+  Ajoute une **description d’image pour la couverture du livre**.
+  
+  Commence le contenu ainsi :
+  
+  [TITRE] : {{bookTitle}}
+  [AUTEUR] : {{author}}
+  [Image couverture] : (une description complète de l’image)
+  
+  Ensuite, rédige les {{chapters}} chapitres comme ceci :
+  
+  ---
+  [Chapitre 1 : Titre de la recette]
+  Image : ...
+  Petite histoire ou anecdote : ...
+  Ingrédients : ...
+  Ustensiles : ...
+  Temps de préparation : X min – Temps de cuisson : X min
+  Étapes :
+  1. ...
+  2. ...
+  ...
+  
+  ---
+  (Répète jusqu’au chapitre {{chapters}} – PAS UN DE PLUS)
+  
+  ---
+  [Résumé] :
+  (Un résumé accrocheur pour donner envie de lire le livre)
+  `;
+    } else if (type.includes("motivation")) {
+      promptTemplate = `
+  Tu es un auteur expert en développement personnel. Crée un **ebook de motivation** destiné à des lecteurs âgés de {{age}} ans.
+  
+  Le livre doit contenir **EXACTEMENT {{chapters}} chapitres** (ni plus, ni moins). Chaque chapitre doit aborder un thème précis et apporter de vrais conseils utiles.
+  
+  📘 Structure :
+  
+  1. Un **titre** : "{{bookTitle}}"
+  2. Le nom de l’auteur : "{{author}}"
+  3. Le thème principal : {{theme}}
+  
+  Ajoute une **description d’image pour la couverture du livre**.
+  
+  Commence le contenu ainsi :
+  
+  [TITRE] : {{bookTitle}}
+  [AUTEUR] : {{author}}
+  [Image couverture] : ...
+  
+  Ensuite, rédige les {{chapters}} chapitres comme ceci :
+  
+  ---
+  [Chapitre 1 : Titre du chapitre]
+  Image : ...
+  Texte :
+  ...
+  
+  ---
+  (Répète jusqu’au chapitre {{chapters}} – PAS UN DE PLUS)
+  
+  ---
+  [Résumé] :
+  (Un résumé inspirant pour donner envie de lire le livre)
+  `;
+    } else {
+      // Par défaut : Roman
+      promptTemplate = `
+  Tu es un écrivain professionnel spécialisé dans la fiction. Crée un **roman immersif** destiné à des lecteurs âgés de {{age}} ans.
+  
+  Le livre doit contenir **EXACTEMENT {{chapters}} chapitres numérotés** (ni plus, ni moins). Chaque chapitre doit faire progresser l’histoire. Aucun chapitre supplémentaire ne doit être généré.
+  
+  📘 Structure :
+  
+  1. Un **titre** : "{{bookTitle}}"
+  2. Le nom de l’auteur : "{{author}}"
+  3. Le thème principal : {{theme}}
+  
+  Ajoute une **description d’image pour la couverture du livre**.
+  
+  Commence le contenu ainsi :
+  
+  [TITRE] : {{bookTitle}}
+  [AUTEUR] : {{author}}
+  [Image couverture] : ...
+  
+  Ensuite, rédige les {{chapters}} chapitres comme ceci :
+  
+  ---
+  [Chapitre 1 : Titre]
+  Image : ...
+  Texte :
+  ...
+  
+  ---
+  (Répète jusqu’au chapitre {{chapters}} – PAS UN DE PLUS)
+  
+  ---
+  [Résumé] :
+  (Un résumé intrigant pour donner envie de découvrir l’histoire)
+  `;
+    }
+  
     return promptTemplate.replace(/{{(.*?)}}/g, (_, key) => values[key.trim()] || '');
   }
 
