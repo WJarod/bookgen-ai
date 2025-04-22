@@ -110,11 +110,15 @@ Texte :
         })
       });
 
+      if (!res.ok) {
+        const errorText = await res.text(); // lire la réponse comme texte
+        throw new Error(`Erreur du serveur (${res.status}) : ${errorText}`);
+      }
+
       const data = await res.json();
       output.value = data.result || '[⚠️ Aucun contenu retourné]';
       if (costDisplay && data.totalTokens !== undefined && data.totalCost !== undefined) {
         costDisplay.textContent = `💰 ${parseFloat(data.totalCost).toFixed(4)} $ | 🔢 ${data.totalTokens} tokens`;
-        // Effet visuel temporaire pour mettre en évidence la mise à jour
         costDisplay.classList.add('bg-success', 'text-white');
         setTimeout(() => {
           costDisplay.classList.remove('bg-success', 'text-white');
